@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Random Image from GitHub</title>
+</head>
+
+<body>
+  <img id="randomImage" src="" alt="随机图片">
+
+  <script>
+    // 替换为你的GitHub仓库信息
+    const repoOwner = '你的用户名';
+    const repoName = '你的仓库名';
+    const imagesDirectory = 'images/'; 
+
+    // GitHub API获取图片列表的URL
+    const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${imagesDirectory}`;
+
+    // 发送请求获取图片列表
+    fetch(apiUrl)
+      .then(response => response.json())
+      .then(data => {
+        // 提取图片下载链接
+        const imageUrls = data.map(item => item.download_url);
+        // 随机选择一张图片
+        const randomUrl = imageUrls[Math.floor(Math.random() * imageUrls.length)];
+        // 设置图片源
+        document.getElementById('randomImage').src = randomUrl;
+      })
+      .catch(error => console.error('Error:', error));
+  </script>
+</body>
+
+</html>
