@@ -1,17 +1,15 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-  <title>随机图片展示</title>
+  <title>自动跳转随机图片</title>
 </head>
-
 <body>
-  <img id="randomImage" src="" alt="随机图片">
-
   <script>
-    // 图片文件名数组
-
-    const imageNames = ['futaimg1.jpg',  'futaimg (1).jpg','futaimg (2).jpg','futaimg (3).jpg','futaimg (4).jpg','futaimg (5).jpg',
+    // 手动配置：替换为你的 GitHub 信息和图片文件名
+    const USERNAME = "LilithKate202"; // 例如：john-doe
+    const REPO_NAME = "futaimg"; // 例如：image-repo
+    const IMAGE_NAMES = [            // 根目录下的所有图片文件名（含扩展名）
+      'futaimg1.jpg',  'futaimg (1).jpg','futaimg (2).jpg','futaimg (3).jpg','futaimg (4).jpg','futaimg (5).jpg',
       'futaimg (6).jpg','futaimg (7).jpg','futaimg (8).jpg','futaimg (9).jpg','futaimg (10).jpg',
       'futaimg (11).jpg','futaimg (12).jpg','futaimg (13).jpg','futaimg (14).jpg','futaimg (15).jpg',
       'futaimg (16).jpg','futaimg (17).jpg','futaimg (18).jpg','futaimg (19).jpg','futaimg (20).jpg',
@@ -30,17 +28,18 @@
       'futaimg (81).jpg','futaimg (82).jpg','futaimg (83).jpg','futaimg (84).jpg','futaimg (85).jpg',
       'futaimg (86).jpg','futaimg (87).jpg','futaimg (88).jpg','futaimg (89).jpg','futaimg (90).jpg',
       'futaimg (91).jpg','futaimg (92).jpg','futaimg (93).jpg','futaimg (94).jpg','futaimg (95).jpg',
-      'futaimg (96).jpg','futaimg (97).jpg','futaimg (98).jpg','futaimg (99).jpg','futaimg (100).jpg',]; // 替换为你的图片文件名
+      'futaimg (96).jpg','futaimg (97).jpg','futaimg (98).jpg','futaimg (99).jpg','futaimg (100).jpg',
+    ];
 
-    // 随机选择一个文件名
-    const randomName = imageNames[Math.floor(Math.random() * imageNames.length)];
+    // 随机选择一个图片文件名
+    const randomIndex = Math.floor(Math.random() * IMAGE_NAMES.length);
+    const randomFileName = IMAGE_NAMES[randomIndex];
 
-    // 构造完整的图片URL
-    const imageUrl = https://Lilithkate202.github.io/futaimg/${randomName};
+    // 构造完整的图片 URL（根目录直接拼接文件名）
+    const imageUrl = https://${USERNAME}.github.io/${REPO_NAME}/${randomFileName};
 
-    // 设置图片的src属性
-    document.getElementById('randomImage').src = imageUrl;
+    // 自动跳转到图片地址
+    window.location.href = imageUrl;
   </script>
 </body>
-
 </html>
