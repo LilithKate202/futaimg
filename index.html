@@ -1,28 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>随机图片（GitHub Pages 路径）</title>
-  <style>
-    img {
-      max-width: 100%;
-      height: auto;
-      display: block;
-      margin: 20px auto;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-  </style>
+  <title>随机图片（含缓存突破）</title>
 </head>
 <body>
   <img id="randomImage" src="" alt="随机图片">
 
   <script>
-    // ====================== 需手动配置的参数 ======================
-    const PAGES_DOMAIN = 'LilithKate202.github.io'; // GitHub Pages 域名
-    const REPO_NAME = 'futaimg';                // 仓库名称
-    const IMAGE_DIR = '';                         // 图片目录（根目录留空，如在 "images" 目录填 "images/"）
-    const IMAGE_FILENAMES = [                     // 手动填写所有图片文件名
-     'futaimg1.jpg',  'futaimg (1).jpg','futaimg (2).jpg','futaimg (3).jpg','futaimg (4).jpg','futaimg (5).jpg',
+    // 配置参数
+    const USERNAME = 'LilithKate202';
+    const REPO = 'futaimg';
+    const IMAGE_DIR = ''; // 图片目录（根目录留空）
+    const IMAGE_NAMES = ['futaimg1.jpg',  'futaimg (1).jpg','futaimg (2).jpg','futaimg (3).jpg','futaimg (4).jpg','futaimg (5).jpg',
       'futaimg (6).jpg','futaimg (7).jpg','futaimg (8).jpg','futaimg (9).jpg','futaimg (10).jpg',
       'futaimg (11).jpg','futaimg (12).jpg','futaimg (13).jpg','futaimg (14).jpg','futaimg (15).jpg',
       'futaimg (16).jpg','futaimg (17).jpg','futaimg (18).jpg','futaimg (19).jpg','futaimg (20).jpg',
@@ -41,21 +30,15 @@
       'futaimg (81).jpg','futaimg (82).jpg','futaimg (83).jpg','futaimg (84).jpg','futaimg (85).jpg',
       'futaimg (86).jpg','futaimg (87).jpg','futaimg (88).jpg','futaimg (89).jpg','futaimg (90).jpg',
       'futaimg (91).jpg','futaimg (92).jpg','futaimg (93).jpg','futaimg (94).jpg','futaimg (95).jpg',
-      'futaimg (96).jpg','futaimg (97).jpg','futaimg (98).jpg','futaimg (99).jpg','futaimg (100).jpg',
-    ];
-    // ====================== 随机加载逻辑 ======================
+      'futaimg (96).jpg','futaimg (97).jpg','futaimg (98).jpg','futaimg (99).jpg','futaimg (100).jpg',]; // 图片文件名数组
 
-    if (IMAGE_FILENAMES.length === 0) {
-      document.getElementById('randomImage').alt = '无可用图片';
-      return;
-    }
-
-    const randomIndex = Math.floor(Math.random() * IMAGE_FILENAMES.length);
-    const randomFilename = IMAGE_FILENAMES[randomIndex];
-
-    // 构造 GitHub Pages 图片路径
-    const imageUrl = https://${PAGES_DOMAIN}/${REPO_NAME}/${IMAGE_DIR}${randomFilename}?t=${Date.now()};
+    // 随机选择文件名
+    const randomName = IMAGE_NAMES[Math.floor(Math.random() * IMAGE_NAMES.length)];
     
+    // 构造带时间戳的图片 URL
+    const imageUrl = https://${USERNAME}.github.io/${REPO}/${IMAGE_DIR}${randomName}?t=${Date.now()};
+    
+    // 设置图片源
     document.getElementById('randomImage').src = imageUrl;
   </script>
 </body>
