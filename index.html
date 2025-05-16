@@ -54,7 +54,7 @@
     const randomFilename = IMAGE_FILENAMES[randomIndex];
 
     // 构造 GitHub Pages 图片路径
-    const imageUrl = https://${PAGES_DOMAIN}/${REPO_NAME}/${IMAGE_DIR}${randomFilename};
+    const imageUrl = https://${PAGES_DOMAIN}/${REPO_NAME}/${IMAGE_DIR}${randomFilename}?t=${Date.now()};
     
     document.getElementById('randomImage').src = imageUrl;
   </script>
