@@ -5,11 +5,10 @@
 </head>
 <body>
   <script>
-    // 手动配置：替换为你的 GitHub 信息和图片文件名
-    const USERNAME = "LilithKate202"; // 例如：john-doe
-    const REPO_NAME = "futaimg"; // 例如：image-repo
-    const IMAGE_NAMES = [            // 根目录下的所有图片文件名（含扩展名）
-      'futaimg1.jpg',  'futaimg (1).jpg','futaimg (2).jpg','futaimg (3).jpg','futaimg (4).jpg','futaimg (5).jpg',
+    // === 配置项 ===
+    const USERNAME = "LilithKate202"; // 替换为你的 GitHub 用户名（小写）
+    const REPO_NAME = "futaimg";    // 替换为仓库名（如仓库是 your-username.github.io，此处留空）
+    const IMAGE_NAMES = ['futaimg1.jpg',  'futaimg (1).jpg','futaimg (2).jpg','futaimg (3).jpg','futaimg (4).jpg','futaimg (5).jpg',
       'futaimg (6).jpg','futaimg (7).jpg','futaimg (8).jpg','futaimg (9).jpg','futaimg (10).jpg',
       'futaimg (11).jpg','futaimg (12).jpg','futaimg (13).jpg','futaimg (14).jpg','futaimg (15).jpg',
       'futaimg (16).jpg','futaimg (17).jpg','futaimg (18).jpg','futaimg (19).jpg','futaimg (20).jpg',
@@ -28,18 +27,37 @@
       'futaimg (81).jpg','futaimg (82).jpg','futaimg (83).jpg','futaimg (84).jpg','futaimg (85).jpg',
       'futaimg (86).jpg','futaimg (87).jpg','futaimg (88).jpg','futaimg (89).jpg','futaimg (90).jpg',
       'futaimg (91).jpg','futaimg (92).jpg','futaimg (93).jpg','futaimg (94).jpg','futaimg (95).jpg',
-      'futaimg (96).jpg','futaimg (97).jpg','futaimg (98).jpg','futaimg (99).jpg','futaimg (100).jpg',
-    ];
+      'futaimg (96).jpg','futaimg (97).jpg','futaimg (98).jpg','futaimg (99).jpg','futaimg (100).jpg',]; // 替换为实际图片文件名（含扩展名）
 
-    // 随机选择一个图片文件名
-    const randomIndex = Math.floor(Math.random() * IMAGE_NAMES.length);
-    const randomFileName = IMAGE_NAMES[randomIndex];
+    // === 调试输出：检查配置是否正确 ===
+    console.log("配置项：");
+    console.log("USERNAME:", USERNAME);
+    console.log("REPO_NAME:", REPO_NAME);
+    console.log("IMAGE_NAMES:", IMAGE_NAMES);
+    console.log("图片数量:", IMAGE_NAMES.length);
 
-    // 构造完整的图片 URL（根目录直接拼接文件名）
-    const imageUrl = https://${USERNAME}.github.io/${REPO_NAME}/${randomFileName};
+    // === 随机选择文件名 ===
+    if (IMAGE_NAMES.length === 0) {
+      console.error("错误：IMAGE_NAMES 数组为空！请添加图片文件名");
+    } else {
+      const randomIndex = Math.floor(Math.random() * IMAGE_NAMES.length);
+      const randomFileName = IMAGE_NAMES[randomIndex];
+      console.log("随机索引:", randomIndex);
+      console.log("选中文件名:", randomFileName);
 
-    // 自动跳转到图片地址
-    window.location.href = imageUrl;
+      // === 构造 URL ===
+      let baseUrl = https://${USERNAME}.github.io/;
+      if (REPO_NAME) {
+        baseUrl += ${REPO_NAME}/; // 非根仓库需添加路径
+      }
+      const targetUrl = baseUrl + randomFileName;
+
+      // === 调试输出：检查最终 URL ===
+      console.log("目标 URL:", targetUrl);
+
+      // === 自动跳转 ===
+      window.location.href = targetUrl;
+    }
   </script>
 </body>
 </html>
