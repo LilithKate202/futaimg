@@ -1,35 +1,50 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-  <title>Random Image from GitHub</title>
+  <title>随机图片（直接链接版）</title>
+  <style>
+    /* 响应式样式：适配不同屏幕大小 */
+    img {
+      max-width: 100%; /* 宽度随屏幕自适应 */
+      height: auto; /* 保持纵横比 */
+      display: block; /* 居中显示 */
+      margin: 20px auto;
+      border-radius: 8px; /* 圆角 */
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1); /* 阴影 */
+    }
+  </style>
 </head>
-
 <body>
-  <img id="randomImage" src="" alt="">
+  <!-- 随机图片容器 -->
+  <img id="randomImage" src="" alt="随机图片">
 
   <script>
-    // 替换为你的GitHub仓库信息
-    const repoOwner = 'LilithKate202';
-    const repoName = 'futaimg';
-    const imagesDirectory = ''; 
+    // ====================== 需手动配置的参数 ======================
+    const GITHUB_OWNER = 'LilithKate202';       // GitHub 用户名
+    const GITHUB_REPO = 'futaimg';         // 仓库名称
+    const IMAGE_DIR = '';             // 图片目录（根目录留空 ''）
+    const IMAGE_FILENAMES = [                // 手动填写所有图片文件名（需与仓库一致）
+      'futaimg1.jpg',
+      
+      // 新增图片需手动添加文件名
+    ];
+    // ====================== 随机加载逻辑 ======================
 
-    // GitHub API获取图片列表的URL
-    const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${imagesDirectory}`;
+    // 检查图片列表是否为空
+    if (IMAGE_FILENAMES.length === 0) {
+      document.getElementById('randomImage').alt = '无可用图片，请添加图片到仓库';
+      return;
+    }
 
-    // 发送请求获取图片列表
-    fetch(apiUrl)
-      .then(response => response.json())
-      .then(data => {
-        // 提取图片下载链接
-        const imageUrls = data.map(item => item.download_url);
-        // 随机选择一张图片
-        const randomUrl = imageUrls[Math.floor(Math.random() * imageUrls.length)];
-        // 设置图片源
-        document.getElementById('randomImage').src = randomUrl;
-      })
-      .catch(error => console.error('Error:', error));
+    // 生成随机索引
+    const randomIndex = Math.floor(Math.random() * IMAGE_FILENAMES.length);
+    const randomFilename = IMAGE_FILENAMES[randomIndex];
+
+    // 构造图片直接下载链接（raw.githubusercontent.com 路径）
+    const imageUrl = https://raw.githubusercontent.com/${GITHUB_OWNER}/${GITHUB_REPO}/main/${IMAGE_DIR}${randomFilename};
+
+    // 设置图片源
+    document.getElementById('randomImage').src = imageUrl;
   </script>
 </body>
-
 </html>
