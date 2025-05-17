@@ -1,63 +1,119 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
-  <title>自动跳转随机图片</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>随机图片展示</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f5f5f5;
+            font-family: Arial, sans-serif;
+            flex-direction: column;
+        }
+        .container {
+            text-align: center;
+            width: 100%;
+            max-width: 1200px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        img {
+            max-width: 100%;
+            max-height: calc(100vh - 100px);
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: block;
+            margin: 0 auto;
+            transition: transform 0.3s ease;
+        }
+        img:hover {
+            transform: scale(1.01);
+        }
+        .loading {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            .loading {
+                font-size: 1.2rem;
+            }
+        }
+        @media (max-width: 480px) {
+            .loading {
+                font-size: 1rem;
+            }
+        }
+    </style>
 </head>
 <body>
-  <script>
-    // === 配置项 ===
-    const USERNAME = "lilithkate202"; // 替换为你的 GitHub 用户名（小写）
-    const REPO_NAME = "futaimg";    // 替换为仓库名（如仓库是 your-username.github.io，此处留空）
-    const IMAGE_NAMES = ['futaimg1.jpg','futaimg (1).jpg','futaimg (2).jpg','futaimg (3).jpg','futaimg (4).jpg','futaimg (5).jpg',
-      'futaimg (6).jpg','futaimg (7).jpg','futaimg (8).jpg','futaimg (9).jpg','futaimg (10).jpg',
-      'futaimg (11).jpg','futaimg (12).jpg','futaimg (13).jpg','futaimg (14).jpg','futaimg (15).jpg',
-      'futaimg (16).jpg','futaimg (17).jpg','futaimg (18).jpg','futaimg (19).jpg','futaimg (20).jpg',
-      'futaimg (21).jpg','futaimg (22).jpg','futaimg (23).jpg','futaimg (24).jpg','futaimg (25).jpg',
-      'futaimg (26).jpg','futaimg (27).jpg','futaimg (28).jpg','futaimg (29).jpg','futaimg (30).jpg',
-      'futaimg (31).jpg','futaimg (32).jpg','futaimg (33).jpg','futaimg (34).jpg','futaimg (35).jpg',
-      'futaimg (36).jpg','futaimg (37).jpg','futaimg (38).jpg','futaimg (39).jpg','futaimg (40).jpg',
-      'futaimg (41).jpg','futaimg (42).jpg','futaimg (43).jpg','futaimg (44).jpg','futaimg (45).jpg',
-      'futaimg (46).jpg','futaimg (47).jpg','futaimg (48).jpg','futaimg (49).jpg','futaimg (50).jpg',
-      'futaimg (51).jpg','futaimg (52).jpg','futaimg (53).jpg','futaimg (54).jpg','futaimg (55).jpg',
-      'futaimg (56).jpg','futaimg (57).jpg','futaimg (58).jpg','futaimg (59).jpg','futaimg (60).jpg',
-      'futaimg (61).jpg','futaimg (62).jpg','futaimg (63).jpg','futaimg (64).jpg','futaimg (65).jpg',
-      'futaimg (66).jpg','futaimg (67).jpg','futaimg (68).jpg','futaimg (69).jpg','futaimg (70).jpg',
-      'futaimg (71).jpg','futaimg (72).jpg','futaimg (73).jpg','futaimg (74).jpg','futaimg (75).jpg',
-      'futaimg (76).jpg','futaimg (77).jpg','futaimg (78).jpg','futaimg (79).jpg','futaimg (80).jpg',
-      'futaimg (81).jpg','futaimg (82).jpg','futaimg (83).jpg','futaimg (84).jpg','futaimg (85).jpg',
-      'futaimg (86).jpg','futaimg (87).jpg','futaimg (88).jpg','futaimg (89).jpg','futaimg (90).jpg',
-      'futaimg (91).jpg','futaimg (92).jpg','futaimg (93).jpg','futaimg (94).jpg','futaimg (95).jpg',
-      'futaimg (96).jpg','futaimg (97).jpg','futaimg (98).jpg','futaimg (99).jpg','futaimg (100).jpg',]; // 替换为实际图片文件名（含扩展名）
+    <div class="container">
+        <div class="loading">正在加载随机图片...</div>
+        <img id="randomImage" src="" alt="随机图片">
+    </div>
 
-    // === 调试输出：检查配置是否正确 ===
-    console.log("配置项：");
-    console.log("USERNAME:", USERNAME);
-    console.log("REPO_NAME:", REPO_NAME);
-    console.log("IMAGE_NAMES:", IMAGE_NAMES);
-    console.log("图片数量:", IMAGE_NAMES.length);
-
-    // === 随机选择文件名 ===
-    if (IMAGE_NAMES.length === 0) {
-      console.error("错误：IMAGE_NAMES 数组为空！请添加图片文件名");
-    } else {
-      const randomIndex = Math.floor(Math.random() * IMAGE_NAMES.length);
-      const randomFileName = IMAGE_NAMES[randomIndex];
-      console.log("随机索引:", randomIndex);
-      console.log("选中文件名:", randomFileName);
-
-      // === 构造 URL ===
-      let baseUrl = https://lilithkate202.github.io/;
-      if (REPO_NAME) {
-        baseUrl += ${REPO_NAME}/; // 非根仓库需添加路径
-      }
-      const targetUrl = baseUrl + randomFileName;
-
-      // === 调试输出：检查最终 URL ===
-      console.log("目标 URL:", targetUrl);
-
-      // === 自动跳转 ===
-      window.location.href = targetUrl;
-    }
-  </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 获取当前仓库的 GitHub API URL
+            const repoApiUrl = 'https://api.github.com/repos/' + window.location.hostname + '/contents/';
+            
+            // 获取所有图片文件
+            fetch(repoApiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    // 筛选出图片文件
+                    const imageFiles = data.filter(item => 
+                        /\.(jpg|jpeg|png|gif|webp)$/i.test(item.name)
+                    );
+                    
+                    if (imageFiles.length === 0) {
+                        throw new Error('仓库中没有找到图片文件');
+                    }
+                    
+                    // 随机选择一张图片
+                    const randomImage = imageFiles[Math.floor(Math.random() * imageFiles.length)];
+                    
+                    // 设置图片的 URL
+                    const imageUrl = randomImage.download_url;
+                    
+                    // 显示图片
+                    document.getElementById('randomImage').src = imageUrl;
+                    document.querySelector('.loading').style.display = 'none';
+                    
+                    // 添加响应式图片调整
+                    window.addEventListener('resize', function() {
+                        adjustImageSize();
+                    });
+                    
+                    adjustImageSize();
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.querySelector('.loading').textContent = '加载图片时出错，请稍后再试';
+                });
+        });
+        
+        function adjustImageSize() {
+            const image = document.getElementById('randomImage');
+            const containerWidth = document.querySelector('.container').offsetWidth;
+            const viewportHeight = window.innerHeight;
+            
+            if (containerWidth < 768) {
+                image.style.maxHeight = ${viewportHeight * 0.7}px;
+            } else {
+                image.style.maxHeight = ${viewportHeight * 0.8}px;
+            }
+        }
+    </script>
 </body>
 </html>
