@@ -72,10 +72,10 @@
     const randomFilename = IMAGE_FILENAMES[randomIndex];
 
     // 获取当前页面的基础 URL
-    const baseUrl = window.location.href;
-
-    // 构造完整的图片 URL
-    const imageUrl = ${baseUrl}${randomFilename};
+    const baseUrl = window.location.origin + window.location.pathname;
+    // 确保基础 URL 末尾有斜杠
+    const normalizedBaseUrl = baseUrl.endsWith('/') ? baseUrl : baseUrl + '/';
+    const imageUrl = ${normalizedBaseUrl}${randomFilename};
 
     // 设置图片的 src 属性
     const image = document.getElementById('randomImage');
