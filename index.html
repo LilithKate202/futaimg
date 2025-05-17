@@ -11,17 +11,27 @@
       border-radius: 8px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
+    #debugInfo {
+      font-family: monospace;
+      white-space: pre-wrap;
+      margin-top: 20px;
+      padding: 10px;
+      background-color: #f5f5f5;
+      border-radius: 5px;
+      font-size: 12px;
+    }
   </style>
 </head>
 <body>
   <img id="randomImage" src="" alt="随机图片">
+  <div id="debugInfo"></div>
 
   <script>
     // ====================== 需手动配置的参数 ======================
     const PAGES_DOMAIN = 'LilithKate202.github.io'; // GitHub Pages 域名
-    const REPO_NAME = 'futaimg';       // 仓库名称
-    const IMAGE_DIR = '';                           // 图片目录（根目录留空，如在 "images" 目录填 "images/"）
-    const IMAGE_FILENAMES = [                       // 手动填写所有图片文件名
+    const REPO_NAME = 'futaimg';                   // 仓库名称
+    const IMAGE_DIR = '';                          // 图片目录（根目录留空，如在 "images" 目录填 "images/"）
+    const IMAGE_FILENAMES = [                      // 手动填写所有图片文件名
       'futaimg1.jpg',  'futaimg (1).jpg','futaimg (2).jpg','futaimg (3).jpg','futaimg (4).jpg','futaimg (5).jpg',
       'futaimg (6).jpg','futaimg (7).jpg','futaimg (8).jpg','futaimg (9).jpg','futaimg (10).jpg',
       'futaimg (11).jpg','futaimg (12).jpg','futaimg (13).jpg','futaimg (14).jpg','futaimg (15).jpg',
@@ -45,8 +55,10 @@
     ];
     // ====================== 随机加载逻辑 ======================
 
+    const debugInfo = document.getElementById('debugInfo');
+
     if (IMAGE_FILENAMES.length === 0) {
-      document.getElementById('randomImage').alt = '无可用图片';
+      debugInfo.textContent += '调试信息：\n无可用图片\n';
       return;
     }
 
@@ -56,7 +68,25 @@
     // 构造 GitHub Pages 图片路径
     const imageUrl = https://${PAGES_DOMAIN}/${REPO_NAME}/${IMAGE_DIR}${randomFilename};
     
-    document.getElementById('randomImage').src = imageUrl;
+    debugInfo.textContent += 调试信息：
+随机索引: ${randomIndex}
+随机文件名: ${randomFilename}
+图片URL: ${imageUrl}\n;
+
+    const image = document.getElementById('randomImage');
+    image.src = imageUrl;
+
+    // 添加错误处理
+    image.onerror = function() {
+      debugInfo.textContent += '错误：图片加载失败\n';
+      // 可以在这里设置默认占位图
+      image.src = 'https://via.placeholder.com/600x400?text=图片加载失败';
+    };
+
+    image.onload = function() {
+      debugInfo.textContent += '图片加载成功\n';
+    };
+
   </script>
 </body>
 </html>
